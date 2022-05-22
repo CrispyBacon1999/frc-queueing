@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%svelte.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		%svelte.head%
+	</head>
+	<body class="queueing">
+		<div class="page">%svelte.body%</div>
+	</body>
+	<style>
+		.queueing {
+			margin: 0;
+			height: 100vh;
+			overflow: hidden;
+		}
+
+		.page {
+			display: grid;
+			grid-template-rows: auto;
+			height: 100vh;
+		}
+	</style>
+</html>
