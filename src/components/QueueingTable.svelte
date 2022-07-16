@@ -3,6 +3,7 @@
 	import type { Match_Simple } from 'tba-api-v3client-ts';
 	import { onMount } from 'svelte';
 	export let eventCode: string;
+	export let dark: boolean = false;
 
 	let lastScrollIndex = -1;
 
@@ -45,9 +46,10 @@
 	}
 </script>
 
-<div class="table" id="matchTable">
+<div class="table" class:dark id="matchTable">
 	{#each matches as match}
 		<MatchRow
+			{dark}
 			matchNumber={match.match_number}
 			redTeams={match.alliances.red.team_keys.map((x) => x.replace('frc', ''))}
 			blueTeams={match.alliances.blue.team_keys.map((x) => x.replace('frc', ''))}
@@ -66,5 +68,11 @@
 
 	.table::-webkit-scrollbar {
 		display: none;
+	}
+
+	.dark {
+		background-color: #111111;
+		color: white;
+		border-bottom-color: #000;
 	}
 </style>

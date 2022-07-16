@@ -1,9 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
 	import Navbar from '../components/Navbar.svelte';
 	import QueueingTable from '../components/QueueingTable.svelte';
+
+	import { page } from '$app/stores';
+	const dark = $page.url.searchParams.get('dark') !== null;
 </script>
 
-<Navbar eventCode={$page.params.eventKey} />
-<QueueingTable eventCode={$page.params.eventKey} />
+<Navbar eventCode={$page.params.eventKey} {dark} />
+<QueueingTable eventCode={$page.params.eventKey} {dark} />

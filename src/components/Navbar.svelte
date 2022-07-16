@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Event_Simple } from 'tba-api-v3client-ts';
 	export let eventCode: string;
+	export let dark: boolean = false;
 
 	let event: Event_Simple;
 
@@ -15,7 +16,7 @@
 	}
 </script>
 
-<div class="navbar">
+<div class="navbar" class:dark>
 	<h2>{event ? event.name : '...'}</h2>
 </div>
 
@@ -33,5 +34,9 @@
 	h2 {
 		margin: 0;
 		padding: 0.75em;
+	}
+
+	.dark {
+		background-color: #000000;
 	}
 </style>
