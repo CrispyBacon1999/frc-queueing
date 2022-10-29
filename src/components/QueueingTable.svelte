@@ -6,14 +6,17 @@
 	export let dark: boolean = false;
 
 	let lastScrollIndex = -1;
+	$: nextMatchIndex = matches.findIndex((match) => {
+		return match.alliances?.blue?.score === -1 || match.alliances?.red?.score === -1;
+	});
 
 	onMount(() => {
 		loadMatches(eventCode);
-		scrollToMatch();
+		// scrollToMatch();
 		setInterval(() => {
 			loadMatches(eventCode);
 			console.log('Refreshing...');
-			scrollToMatch();
+			// scrollToMatch();
 		}, 15000);
 	});
 
@@ -26,8 +29,10 @@
 		nextMatchIndex = nextMatchIndex === -1 ? matches.length : nextMatchIndex;
 		const table = document.getElementById('matchTable');
 		const tableRow = document.getElementById(`matchRow-${nextMatchIndex}`);
-		const y = tableRow ? tableRow?.getBoundingClientRect().y : 0;
-		const tableY = table ? table?.getBoundingClientRect().y : 0;
+		const y = tableRow ? tableRow?.getBoundingClientRect().top : 0;
+		const tableY = table ? table?.getBoundingClientRect().top : 0;
+		const bodyY = document.body.getBoundingClientRect().top;
+		console.log(y, tableY, bodyY);
 		if (lastScrollIndex !== nextMatchIndex) {
 			table?.scrollTo({ top: y - tableY, behavior: 'smooth' });
 		}
@@ -47,7 +52,7 @@
 </script>
 
 <div class="table" class:dark id="matchTable">
-	{#each matches as match}
+	{#each matches.slice(nextMatchIndex, matches.length) as match}
 		<MatchRow
 			{dark}
 			matchNumber={match.match_number}
